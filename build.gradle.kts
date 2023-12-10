@@ -2,6 +2,9 @@ plugins {
     java
     id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
+    id("com.diffplug.spotless") version "6.23.3"
+    jacoco
+    id("net.researchgate.release") version "3.0.2"
 }
 
 group = "dev.puzzler995"
@@ -18,6 +21,15 @@ java {
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
+spotless {
+    java {
+        target("src/*/java/**/*.java")
+        googleJavaFormat().reflowLongStrings().reorderImports(true)
+        removeUnusedImports()
+        formatAnnotations()
     }
 }
 
@@ -45,4 +57,11 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+release {
+    git {
+        requireBranch.set("master")
+    }
 }

@@ -1,0 +1,16 @@
+settings:
+  bot:
+    activity-message: "all the streaming services!"
+    default-send-matched-message: true
+    disabled-sites: [ ]
+    enable-commands:
+      slash: true
+      context-menu: false
+      messages: true
+  sites:
+    songlink:
+      song-if-single: true
+      user-country: "US"
+logging:
+  level:
+    root: info
